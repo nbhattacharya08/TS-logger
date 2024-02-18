@@ -1,4 +1,4 @@
 const getDateTime = () => {
-    return new Date().toISOString();
+    return new Date().toString();
 }
 export default getDateTime;
