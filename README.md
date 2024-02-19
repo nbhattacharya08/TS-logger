@@ -1,1 +1,1 @@
-# TS-logger
+# Read the "docs.txt" file for the documentation of the repository
