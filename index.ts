@@ -1,124 +1,97 @@
-import LogLevel  from "./levels";
-import getDateTime from "./dateTimeModule/getDateTime";
+import CreateLogMessage from "./CreateLogMessageModule/CreateLogMessage";
 import consoleOutput from "./outputModule/consoleOutput";
 import fileOutput from "./outputModule/fileOutput";
+import LogLevel  from "./levels";
 
-class CreateLogMessage {
+class ConsoleLog  {
+    private logMessageObject: CreateLogMessage;
 
-    protected static level: LogLevel = LogLevel.Verbose;
-    protected static loggerName: string = "Logger";
-    protected static logText: string = "";
-
-    
-    protected static setLogDateTimeInMessage(){
-        const dateTime: string = getDateTime();
-        this.logText = this.logText + `[${dateTime}]`;
+    constructor(){
+        this.logMessageObject = new CreateLogMessage();
     }
-
-    protected static setLoggerNameInMessage(){
-        this.logText = this.logText + ` [${this.loggerName}]`;
-    }
-
-    protected static setLogLevelInMessage(inputLevel: string){
-        this.logText = this.logText + ` [${inputLevel}]`;
-    }
-
-    protected static setLogMessage(inputMessage: string){
-        this.logText = this.logText + " " + inputMessage;
-    }
-
-    protected static buildLogMessage(inputLevel: string, inputMessage: string){
-        this.setLogDateTimeInMessage();
-        this.setLoggerNameInMessage();
-        this.setLogLevelInMessage(inputLevel);
-        this.setLogMessage(inputMessage);
-    }
-
-}
-class ConsoleLog extends CreateLogMessage {
-    static setLevel(level: LogLevel) {
-        CreateLogMessage.level = level;
+    public setLevel(level: LogLevel) {
+        this.logMessageObject.setLevel(level);
     }
   
-    static setLoggerName(loggerName: string) {
-          CreateLogMessage.loggerName = loggerName;
+    public setLoggerName(loggerName: string) {
+          this.logMessageObject.setLoggerName(loggerName);
     }
 
-    static verbose(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Verbose) {
-            CreateLogMessage.buildLogMessage("Verbose", message);
-            consoleOutput(CreateLogMessage.logText, "white");
-            CreateLogMessage.logText = "";
+    public verbose(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Verbose) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Verbose", message);
+            consoleOutput(formattedMessage, "white");
         }
     }
 
-    static info(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Info) {
-            CreateLogMessage.buildLogMessage("Info", message);
-            consoleOutput(CreateLogMessage.logText, "blue");
-            CreateLogMessage.logText = "";
+    public info(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Info) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Info", message);
+            consoleOutput(formattedMessage, "blue");
         }
     }
 
-    static warn(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Warning) {
-            CreateLogMessage.buildLogMessage("Warning", message);
-            consoleOutput(CreateLogMessage.logText, "yellow");
-            CreateLogMessage.logText = "";
+    public warn(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Warning) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Warning", message);
+            consoleOutput(formattedMessage, "yellow");
         }
     }
 
-    static error(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Error) {
-            CreateLogMessage.buildLogMessage("Error", message);
-            consoleOutput(CreateLogMessage.logText, "red");
-            CreateLogMessage.logText = "";
+    public error(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Error) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Error", message);
+            consoleOutput(formattedMessage, "red");
         }
     }
 }
 
-class FileLog extends CreateLogMessage {
-    private static filePath: string = "logs.txt";
-    static setFilePath(filePath: string) {
-        FileLog.filePath = filePath;
+class FileLog {
+
+    private filePath: string = "logs.txt";
+
+    private logMessageObject: CreateLogMessage;
+
+    constructor(){
+        this.logMessageObject = new CreateLogMessage();
     }
-    static setLevel(level: LogLevel) {
-        CreateLogMessage.level = level;
+
+    public setFilePath(filePath: string) {
+        this.filePath = filePath;
+    }
+    public setLevel(level: LogLevel) {
+        this.logMessageObject.setLevel(level);
     }
   
-    static setLoggerName(loggerName: string) {
-          CreateLogMessage.loggerName = loggerName;
+    public setLoggerName(loggerName: string) {
+        this.logMessageObject.setLoggerName(loggerName);
     }
 
-    static verbose(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Verbose) {
-            CreateLogMessage.buildLogMessage("Verbose", message);
-            fileOutput(CreateLogMessage.logText, this.filePath);
-            CreateLogMessage.logText = "";
+    public verbose(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Verbose) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Verbose", message);
+            fileOutput(formattedMessage, this.filePath);
         }
     }
 
-    static info(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Info) {
-            CreateLogMessage.buildLogMessage("Info", message);
-            fileOutput(CreateLogMessage.logText, this.filePath);
-            CreateLogMessage.logText = "";
+    public info(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Info) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Info", message);
+            fileOutput(formattedMessage, this.filePath);
         }
     }
 
-    static warn(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Warning) {
-            CreateLogMessage.buildLogMessage("Warning", message);
-            fileOutput(CreateLogMessage.logText, this.filePath);
-            CreateLogMessage.logText = "";
+    public warn(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Warning) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Warning", message);
+            fileOutput(formattedMessage, this.filePath);
         }
     }
 
-    static error(message: string) {
-        if (CreateLogMessage.level <= LogLevel.Error) {
-            CreateLogMessage.buildLogMessage("Error", message);
-            fileOutput(CreateLogMessage.logText, this.filePath);
-            CreateLogMessage.logText = "";
+    public error(message: string) {
+        if (this.logMessageObject.getLevel() <= LogLevel.Error) {
+            const formattedMessage: string = this.logMessageObject.buildLogMessage("Error", message);
+            fileOutput(formattedMessage, this.filePath);
         }
     }
 }

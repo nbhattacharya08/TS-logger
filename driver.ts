@@ -1,18 +1,20 @@
-import { ConsoleLog, LogLevel , FileLog } from './index';
+import { ConsoleLog, FileLog , LogLevel } from './index';
 
-//Logger.setLevel(LogLevel.Warning);
-ConsoleLog.setLoggerName("ConsoleLogger");
-ConsoleLog.verbose("This is a verbose message");
-ConsoleLog.info("This is an info message");
-ConsoleLog.warn("This is a warning message");
-ConsoleLog.error("This is an error message");
+const logger1 = new ConsoleLog();
+logger1.setLoggerName("ConsoleLogger");
+logger1.setLevel(LogLevel.Warning);
+logger1.verbose("This is a verbose message");
+logger1.info("This is an info message");
+logger1.warn("This is a warning message");
+logger1.error("This is an error message");
 
-FileLog.setFilePath("logs.txt");
-FileLog.setLoggerName("FileLogger");
-//FileLog.setLevel(LogLevel.Info);
-FileLog.verbose("This is a verbose message");
-FileLog.info("This is an info message");
-FileLog.warn("This is a warning message");
-FileLog.error("This is an error message");
+const logger2 = new FileLog();
+logger2.setLoggerName("FileLogger");
+logger2.setFilePath("logs.txt");
+logger2.setLevel(LogLevel.Info);
+logger2.verbose("This is a verbose message");
+logger2.info("This is an info message");
+logger2.warn("This is a warning message");
+logger2.error("This is an error message");
 
 
