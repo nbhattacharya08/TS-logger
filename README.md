@@ -1,7 +1,7 @@
 *********************************************************************************************************
-#Welcome to TS-logger - A logger library for Typescript Web Application.
-##The Logger can both print your logs in the terminal and save your logs in a .txt file
-##Let us see how we can use the logger in our code:
+# Welcome to TS-logger - A logger library for Typescript Web Application.
+## The Logger can both print your logs in the terminal and save your logs in a .txt file
+## Let us see how we can use the logger in our code:
 
 *********************************************************************************************************
 
